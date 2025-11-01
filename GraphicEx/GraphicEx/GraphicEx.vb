@@ -2,6 +2,7 @@
 'Spring 2025
 'RCET2265
 'Graphics Example
+'Theres about to be a few changes
 'https://github.com/TheGoldenPorkchop/Etch-A-Sketch/tree/main
 Option Strict On
 Option Explicit On
