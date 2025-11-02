@@ -13,6 +13,20 @@ Imports System.Threading.Thread
 
 Public Class GraphicEx
 
+    Sub GetPorts()
+        Dim ports() = SerialPort1.GetPortNames()
+        PortsComboBox.Items.Clear()
+
+        For Each port In ports
+            PortsComboBox.Items.Add(port)
+        Next
+        Try
+            PortsComboBox.SelectedIndex = 0
+        Catch ex As Exception
+
+        End Try
+    End Sub
+
     Function PenWidth(Optional newWidth As Integer = -1) As Integer
         Static _penWidth As Integer = 1
         If newWidth > 100 Then
@@ -197,7 +211,26 @@ Public Class GraphicEx
         TanWave()
     End Sub
 
+    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        CheckForIllegalCrossThreadCalls = False
+        Dim numberOfBytes = SerialPort1.BytesToRead
+        Dim buffer(numberOfBytes - 1) As Byte
+        Dim got As Integer = SerialPort1.Read(buffer, 0, numberOfBytes)
+
+        'BytesToReadTextBox.Text = CStr(numberOfBytes)
+
+        If got > 0 Then
+            'Do Code
+        End If
+
+    End Sub
+
+
     Private Sub ExitButton_Click(sender As Object, e As EventArgs) Handles ExitButton.Click, ExitMenuItem.Click
         Me.Close()
+    End Sub
+
+    Private Sub GraphicEx_Load(sender As Object, e As EventArgs) Handles Me.Load
+        GetPorts()
     End Sub
 End Class

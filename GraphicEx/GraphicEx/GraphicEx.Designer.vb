@@ -44,9 +44,16 @@ Partial Class GraphicEx
         Me.SelectColorButton = New System.Windows.Forms.Button()
         Me.EraseButton = New System.Windows.Forms.Button()
         Me.ExitButton = New System.Windows.Forms.Button()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.AnalogModeRadioButton = New System.Windows.Forms.RadioButton()
+        Me.MouseModeRadioButton = New System.Windows.Forms.RadioButton()
+        Me.PortsComboBox = New System.Windows.Forms.ComboBox()
+        Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
+        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.TopMenuStrip.SuspendLayout()
         Me.MainContextMenuStrip.SuspendLayout()
         CType(Me.DrawingPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'TopMenuStrip
@@ -55,7 +62,7 @@ Partial Class GraphicEx
         Me.TopMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.TopMenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.TopMenuStrip.Name = "TopMenuStrip"
-        Me.TopMenuStrip.Size = New System.Drawing.Size(800, 28)
+        Me.TopMenuStrip.Size = New System.Drawing.Size(920, 28)
         Me.TopMenuStrip.TabIndex = 0
         Me.TopMenuStrip.Text = "MenuStrip1"
         '
@@ -82,19 +89,19 @@ Partial Class GraphicEx
         'ForegroundColorTopMenuItem
         '
         Me.ForegroundColorTopMenuItem.Name = "ForegroundColorTopMenuItem"
-        Me.ForegroundColorTopMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ForegroundColorTopMenuItem.Size = New System.Drawing.Size(205, 26)
         Me.ForegroundColorTopMenuItem.Text = "Select &Color"
         '
         'DrawWaveformsTopMenuItem
         '
         Me.DrawWaveformsTopMenuItem.Name = "DrawWaveformsTopMenuItem"
-        Me.DrawWaveformsTopMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.DrawWaveformsTopMenuItem.Size = New System.Drawing.Size(205, 26)
         Me.DrawWaveformsTopMenuItem.Text = "Draw Waveforms"
         '
         'ClearTopMenuItem
         '
         Me.ClearTopMenuItem.Name = "ClearTopMenuItem"
-        Me.ClearTopMenuItem.Size = New System.Drawing.Size(224, 26)
+        Me.ClearTopMenuItem.Size = New System.Drawing.Size(205, 26)
         Me.ClearTopMenuItem.Text = "Erase"
         '
         'HelpToolStripMenuItem
@@ -115,24 +122,24 @@ Partial Class GraphicEx
         Me.MainContextMenuStrip.ImageScalingSize = New System.Drawing.Size(20, 20)
         Me.MainContextMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ForegroundColorMenuItem, Me.DrawWaveformsMenuItem, Me.ClearMenuItem})
         Me.MainContextMenuStrip.Name = "ContextMenuStrip1"
-        Me.MainContextMenuStrip.Size = New System.Drawing.Size(211, 104)
+        Me.MainContextMenuStrip.Size = New System.Drawing.Size(192, 76)
         '
         'ForegroundColorMenuItem
         '
         Me.ForegroundColorMenuItem.Name = "ForegroundColorMenuItem"
-        Me.ForegroundColorMenuItem.Size = New System.Drawing.Size(210, 24)
+        Me.ForegroundColorMenuItem.Size = New System.Drawing.Size(191, 24)
         Me.ForegroundColorMenuItem.Text = "Select &Color"
         '
         'DrawWaveformsMenuItem
         '
         Me.DrawWaveformsMenuItem.Name = "DrawWaveformsMenuItem"
-        Me.DrawWaveformsMenuItem.Size = New System.Drawing.Size(210, 24)
+        Me.DrawWaveformsMenuItem.Size = New System.Drawing.Size(191, 24)
         Me.DrawWaveformsMenuItem.Text = "Draw Waveforms"
         '
         'ClearMenuItem
         '
         Me.ClearMenuItem.Name = "ClearMenuItem"
-        Me.ClearMenuItem.Size = New System.Drawing.Size(210, 24)
+        Me.ClearMenuItem.Size = New System.Drawing.Size(191, 24)
         Me.ClearMenuItem.Text = "Erase"
         '
         'DrawingPictureBox
@@ -143,7 +150,7 @@ Partial Class GraphicEx
         Me.DrawingPictureBox.BackColor = System.Drawing.Color.White
         Me.DrawingPictureBox.Location = New System.Drawing.Point(12, 31)
         Me.DrawingPictureBox.Name = "DrawingPictureBox"
-        Me.DrawingPictureBox.Size = New System.Drawing.Size(763, 328)
+        Me.DrawingPictureBox.Size = New System.Drawing.Size(883, 328)
         Me.DrawingPictureBox.TabIndex = 1
         Me.DrawingPictureBox.TabStop = False
         Me.DrawingToolTip.SetToolTip(Me.DrawingPictureBox, "Right Click For More Options")
@@ -188,14 +195,57 @@ Partial Class GraphicEx
         Me.ExitButton.Text = "E&xit Button"
         Me.ExitButton.UseVisualStyleBackColor = True
         '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.AnalogModeRadioButton)
+        Me.GroupBox1.Controls.Add(Me.MouseModeRadioButton)
+        Me.GroupBox1.Location = New System.Drawing.Point(532, 365)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(134, 73)
+        Me.GroupBox1.TabIndex = 6
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "GroupBox1"
+        '
+        'AnalogModeRadioButton
+        '
+        Me.AnalogModeRadioButton.AutoSize = True
+        Me.AnalogModeRadioButton.Location = New System.Drawing.Point(6, 47)
+        Me.AnalogModeRadioButton.Name = "AnalogModeRadioButton"
+        Me.AnalogModeRadioButton.Size = New System.Drawing.Size(109, 20)
+        Me.AnalogModeRadioButton.TabIndex = 8
+        Me.AnalogModeRadioButton.TabStop = True
+        Me.AnalogModeRadioButton.Text = "Analog Mode"
+        Me.AnalogModeRadioButton.UseVisualStyleBackColor = True
+        '
+        'MouseModeRadioButton
+        '
+        Me.MouseModeRadioButton.AutoSize = True
+        Me.MouseModeRadioButton.Location = New System.Drawing.Point(6, 21)
+        Me.MouseModeRadioButton.Name = "MouseModeRadioButton"
+        Me.MouseModeRadioButton.Size = New System.Drawing.Size(107, 20)
+        Me.MouseModeRadioButton.TabIndex = 7
+        Me.MouseModeRadioButton.TabStop = True
+        Me.MouseModeRadioButton.Text = "Mouse Mode"
+        Me.MouseModeRadioButton.UseVisualStyleBackColor = True
+        '
+        'PortsComboBox
+        '
+        Me.PortsComboBox.FormattingEnabled = True
+        Me.PortsComboBox.Location = New System.Drawing.Point(672, 382)
+        Me.PortsComboBox.Name = "PortsComboBox"
+        Me.PortsComboBox.Size = New System.Drawing.Size(121, 24)
+        Me.PortsComboBox.TabIndex = 7
+        '
         'GraphicEx
         '
         Me.AcceptButton = Me.DrawWaveButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(8.0!, 16.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.CancelButton = Me.EraseButton
-        Me.ClientSize = New System.Drawing.Size(800, 450)
+        Me.ClientSize = New System.Drawing.Size(920, 450)
         Me.ContextMenuStrip = Me.MainContextMenuStrip
+        Me.Controls.Add(Me.PortsComboBox)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.ExitButton)
         Me.Controls.Add(Me.EraseButton)
         Me.Controls.Add(Me.SelectColorButton)
@@ -209,6 +259,8 @@ Partial Class GraphicEx
         Me.TopMenuStrip.PerformLayout()
         Me.MainContextMenuStrip.ResumeLayout(False)
         CType(Me.DrawingPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -235,4 +287,10 @@ Partial Class GraphicEx
     Friend WithEvents ExitButton As Button
     Friend WithEvents DrawWaveformsTopMenuItem As ToolStripMenuItem
     Friend WithEvents DrawWaveformsMenuItem As ToolStripMenuItem
+    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents MouseModeRadioButton As RadioButton
+    Friend WithEvents AnalogModeRadioButton As RadioButton
+    Friend WithEvents PortsComboBox As ComboBox
+    Friend WithEvents SerialPort1 As IO.Ports.SerialPort
+    Friend WithEvents Timer1 As Timer
 End Class
