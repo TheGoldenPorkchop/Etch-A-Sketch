@@ -1,9 +1,8 @@
 ﻿'Angel Nava
-'Spring 2025
-'RCET2265
-'Graphics Example
-'Theres about to be a few changes
-'https://github.com/TheGoldenPorkchop/Etch-A-Sketch/tree/main
+'Fall 2025
+'RCET3371
+'Better Etch-Esketch
+'https://github.com/TheGoldenPorkchop/Etch-A-Sketch
 Option Strict On
 Option Explicit On
 
