@@ -7,6 +7,7 @@
 Option Strict On
 Option Explicit On
 
+Imports System.IO.Ports
 Imports System.Media
 Imports System.Runtime.CompilerServices
 Imports System.Threading.Thread
@@ -141,6 +142,50 @@ Public Class GraphicEx
         g.Dispose()
     End Sub
 
+    Sub DrawWithAnalog(oldX%, oldY%, newX%, newY%)
+        Dim g As Graphics = DrawingPictureBox.CreateGraphics
+        Dim pen As New Pen(ForeGroundColor, PenWidth())
+        Dim scaleX As Single = CSng(DrawingPictureBox.Width / 100)
+        Dim scaleY As Single = CSng((DrawingPictureBox.Height / 100) * -1)
+
+        g.TranslateTransform(0, DrawingPictureBox.Height) 'moves the origin to bottom
+        g.ScaleTransform(scaleX, scaleY) 'scale to 100 x 100
+        pen.Width = CSng(pen.Width * 0.25) 'pen size
+
+        g.DrawLine(pen, oldX, oldY, newX, newY)
+
+
+        g.Dispose()
+        pen.Dispose()
+    End Sub
+
+    Sub Connect()
+        SerialPort1.Close()
+        SerialPort1.BaudRate = 115200 'Q@ Board Default
+        SerialPort1.Parity = Parity.None
+        SerialPort1.StopBits = StopBits.One
+        SerialPort1.DataBits = 8
+        Try
+            SerialPort1.PortName = PortsComboBox.Text
+        Catch ex As Exception
+            MsgBox("Select or Change your Port via the Combo Box")
+        End Try
+        'SerialPort1.PortName = "COM5" 'RS232 Cable
+        SerialPort1.Open()
+    End Sub
+
+    Sub AnalogRead()
+        Dim data(0) As Byte
+        data(0) = &H53 'Read Analog
+
+        Try
+            SerialPort1.Write(data, 0, 1)
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
     'Event Handlers --------------------------------------------------------
 
     Private Sub GraphicEx_MouseMove(sender As Object, e As MouseEventArgs) Handles DrawingPictureBox.MouseMove, DrawingPictureBox.MouseDown
@@ -149,7 +194,9 @@ Public Class GraphicEx
         Me.Text = $"({e.X},{e.Y}) {e.Button.ToString} FG {ForeGroundColor.ToString}"
         Select Case e.Button.ToString
             Case "Left"
-                DrawWithMouse(oldX, oldY, e.X, e.Y)
+                If MouseModeRadioButton.Checked = True Then
+                    DrawWithMouse(oldX, oldY, e.X, e.Y)
+                End If
             Case "Right"
                 'Empty
             Case "Middle"
@@ -212,16 +259,49 @@ Public Class GraphicEx
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        CheckForIllegalCrossThreadCalls = False
-        Dim numberOfBytes = SerialPort1.BytesToRead
-        Dim buffer(numberOfBytes - 1) As Byte
-        Dim got As Integer = SerialPort1.Read(buffer, 0, numberOfBytes)
+        Try
 
-        'BytesToReadTextBox.Text = CStr(numberOfBytes)
+            If AnalogModeRadioButton.Checked = True Then
+                AnalogRead()
+            End If
 
-        If got > 0 Then
-            'Do Code
-        End If
+            CheckForIllegalCrossThreadCalls = False
+            Dim numberOfBytes = SerialPort1.BytesToRead
+            Dim buffer(numberOfBytes - 1) As Byte
+            Dim got As Integer = SerialPort1.Read(buffer, 0, numberOfBytes)
+            Dim XCoordinate As Integer
+            Dim YCoordinate As Integer
+
+            'BytesToReadTextBox.Text = CStr(numberOfBytes)
+
+            If got > 0 Then
+                If AnalogModeRadioButton.Checked = True Then
+                    XCoordinate = CInt((buffer(0) / 256) * 100)
+                    YCoordinate = CInt((buffer(2) / 256) * 100)
+
+                    Static oldX As Integer = XCoordinate
+                    Static oldY As Integer = YCoordinate
+
+
+                    XAnalogTextBox.Text = CStr(XCoordinate)
+                    YAnalogTextBox.Text = CStr(YCoordinate)
+
+                    DrawWithAnalog(oldX, oldY, XCoordinate, YCoordinate)
+
+                    oldX = XCoordinate
+                    oldY = YCoordinate
+                Else
+                    XAnalogTextBox.Text = ""
+                    YAnalogTextBox.Text = ""
+                End If
+            End If
+        Catch ex As Exception
+            Timer1.Stop()
+            MsgBox("Try Reconnecting your QY@ Board")
+            AnalogModeRadioButton.Checked = False
+            MouseModeRadioButton.Checked = True
+        End Try
+
 
     End Sub
 
@@ -232,5 +312,33 @@ Public Class GraphicEx
 
     Private Sub GraphicEx_Load(sender As Object, e As EventArgs) Handles Me.Load
         GetPorts()
+        Try
+            Connect()
+        Catch ex As Exception
+            MsgBox("Connect your Qy@ Board")
+        End Try
+
     End Sub
+
+    Private Sub XAnalogTextBox_TextChanged(sender As Object, e As EventArgs) Handles XAnalogTextBox.TextChanged
+
+    End Sub
+
+    Private Sub AnalogModeRadioButton_CheckedChanged(sender As Object, e As EventArgs) Handles AnalogModeRadioButton.CheckedChanged
+        Try
+            If AnalogModeRadioButton.Checked = True Then
+                GetPorts()
+                Connect()
+                Timer1.Stop()
+                Timer1.Start()
+            End If
+        Catch ex As Exception
+            Timer1.Stop()
+            MsgBox("Try Reconnecting your QY@ Board")
+            AnalogModeRadioButton.Checked = False
+            MouseModeRadioButton.Checked = True
+        End Try
+
+    End Sub
+
 End Class

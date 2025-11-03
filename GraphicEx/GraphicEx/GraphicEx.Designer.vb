@@ -44,16 +44,23 @@ Partial Class GraphicEx
         Me.SelectColorButton = New System.Windows.Forms.Button()
         Me.EraseButton = New System.Windows.Forms.Button()
         Me.ExitButton = New System.Windows.Forms.Button()
-        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.ModeSelectGroupBox = New System.Windows.Forms.GroupBox()
         Me.AnalogModeRadioButton = New System.Windows.Forms.RadioButton()
         Me.MouseModeRadioButton = New System.Windows.Forms.RadioButton()
         Me.PortsComboBox = New System.Windows.Forms.ComboBox()
         Me.SerialPort1 = New System.IO.Ports.SerialPort(Me.components)
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
+        Me.XAnalogTextBox = New System.Windows.Forms.TextBox()
+        Me.YAnalogTextBox = New System.Windows.Forms.TextBox()
+        Me.Label1 = New System.Windows.Forms.Label()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.AnalogCoordsGroupBox = New System.Windows.Forms.GroupBox()
+        Me.Label3 = New System.Windows.Forms.Label()
         Me.TopMenuStrip.SuspendLayout()
         Me.MainContextMenuStrip.SuspendLayout()
         CType(Me.DrawingPictureBox, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.GroupBox1.SuspendLayout()
+        Me.ModeSelectGroupBox.SuspendLayout()
+        Me.AnalogCoordsGroupBox.SuspendLayout()
         Me.SuspendLayout()
         '
         'TopMenuStrip
@@ -62,7 +69,7 @@ Partial Class GraphicEx
         Me.TopMenuStrip.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.FileToolStripMenuItem, Me.EditToolStripMenuItem, Me.HelpToolStripMenuItem})
         Me.TopMenuStrip.Location = New System.Drawing.Point(0, 0)
         Me.TopMenuStrip.Name = "TopMenuStrip"
-        Me.TopMenuStrip.Size = New System.Drawing.Size(920, 28)
+        Me.TopMenuStrip.Size = New System.Drawing.Size(920, 30)
         Me.TopMenuStrip.TabIndex = 0
         Me.TopMenuStrip.Text = "MenuStrip1"
         '
@@ -157,6 +164,9 @@ Partial Class GraphicEx
         '
         'DrawWaveButton
         '
+        Me.DrawWaveButton.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.DrawWaveButton.Location = New System.Drawing.Point(12, 365)
         Me.DrawWaveButton.Name = "DrawWaveButton"
         Me.DrawWaveButton.Size = New System.Drawing.Size(124, 73)
@@ -167,6 +177,9 @@ Partial Class GraphicEx
         '
         'SelectColorButton
         '
+        Me.SelectColorButton.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SelectColorButton.Location = New System.Drawing.Point(142, 365)
         Me.SelectColorButton.Name = "SelectColorButton"
         Me.SelectColorButton.Size = New System.Drawing.Size(124, 73)
@@ -177,6 +190,9 @@ Partial Class GraphicEx
         '
         'EraseButton
         '
+        Me.EraseButton.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.EraseButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.EraseButton.Location = New System.Drawing.Point(272, 365)
         Me.EraseButton.Name = "EraseButton"
@@ -188,6 +204,9 @@ Partial Class GraphicEx
         '
         'ExitButton
         '
+        Me.ExitButton.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ExitButton.Location = New System.Drawing.Point(402, 365)
         Me.ExitButton.Name = "ExitButton"
         Me.ExitButton.Size = New System.Drawing.Size(124, 73)
@@ -195,16 +214,19 @@ Partial Class GraphicEx
         Me.ExitButton.Text = "E&xit Button"
         Me.ExitButton.UseVisualStyleBackColor = True
         '
-        'GroupBox1
+        'ModeSelectGroupBox
         '
-        Me.GroupBox1.Controls.Add(Me.AnalogModeRadioButton)
-        Me.GroupBox1.Controls.Add(Me.MouseModeRadioButton)
-        Me.GroupBox1.Location = New System.Drawing.Point(532, 365)
-        Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(134, 73)
-        Me.GroupBox1.TabIndex = 6
-        Me.GroupBox1.TabStop = False
-        Me.GroupBox1.Text = "GroupBox1"
+        Me.ModeSelectGroupBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ModeSelectGroupBox.Controls.Add(Me.AnalogModeRadioButton)
+        Me.ModeSelectGroupBox.Controls.Add(Me.MouseModeRadioButton)
+        Me.ModeSelectGroupBox.Location = New System.Drawing.Point(532, 365)
+        Me.ModeSelectGroupBox.Name = "ModeSelectGroupBox"
+        Me.ModeSelectGroupBox.Size = New System.Drawing.Size(134, 73)
+        Me.ModeSelectGroupBox.TabIndex = 6
+        Me.ModeSelectGroupBox.TabStop = False
+        Me.ModeSelectGroupBox.Text = "Mode Select"
         '
         'AnalogModeRadioButton
         '
@@ -213,13 +235,13 @@ Partial Class GraphicEx
         Me.AnalogModeRadioButton.Name = "AnalogModeRadioButton"
         Me.AnalogModeRadioButton.Size = New System.Drawing.Size(109, 20)
         Me.AnalogModeRadioButton.TabIndex = 8
-        Me.AnalogModeRadioButton.TabStop = True
         Me.AnalogModeRadioButton.Text = "Analog Mode"
         Me.AnalogModeRadioButton.UseVisualStyleBackColor = True
         '
         'MouseModeRadioButton
         '
         Me.MouseModeRadioButton.AutoSize = True
+        Me.MouseModeRadioButton.Checked = True
         Me.MouseModeRadioButton.Location = New System.Drawing.Point(6, 21)
         Me.MouseModeRadioButton.Name = "MouseModeRadioButton"
         Me.MouseModeRadioButton.Size = New System.Drawing.Size(107, 20)
@@ -230,11 +252,86 @@ Partial Class GraphicEx
         '
         'PortsComboBox
         '
+        Me.PortsComboBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PortsComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList
         Me.PortsComboBox.FormattingEnabled = True
-        Me.PortsComboBox.Location = New System.Drawing.Point(672, 382)
+        Me.PortsComboBox.Location = New System.Drawing.Point(672, 390)
         Me.PortsComboBox.Name = "PortsComboBox"
-        Me.PortsComboBox.Size = New System.Drawing.Size(121, 24)
-        Me.PortsComboBox.TabIndex = 7
+        Me.PortsComboBox.Size = New System.Drawing.Size(78, 24)
+        Me.PortsComboBox.TabIndex = 9
+        '
+        'Timer1
+        '
+        '
+        'XAnalogTextBox
+        '
+        Me.XAnalogTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.XAnalogTextBox.Location = New System.Drawing.Point(27, 19)
+        Me.XAnalogTextBox.Name = "XAnalogTextBox"
+        Me.XAnalogTextBox.ReadOnly = True
+        Me.XAnalogTextBox.Size = New System.Drawing.Size(100, 22)
+        Me.XAnalogTextBox.TabIndex = 9
+        '
+        'YAnalogTextBox
+        '
+        Me.YAnalogTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.YAnalogTextBox.Location = New System.Drawing.Point(27, 46)
+        Me.YAnalogTextBox.Name = "YAnalogTextBox"
+        Me.YAnalogTextBox.ReadOnly = True
+        Me.YAnalogTextBox.Size = New System.Drawing.Size(100, 22)
+        Me.YAnalogTextBox.TabIndex = 10
+        '
+        'Label1
+        '
+        Me.Label1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label1.AutoSize = True
+        Me.Label1.Location = New System.Drawing.Point(6, 22)
+        Me.Label1.Name = "Label1"
+        Me.Label1.Size = New System.Drawing.Size(15, 16)
+        Me.Label1.TabIndex = 11
+        Me.Label1.Text = "X"
+        '
+        'Label2
+        '
+        Me.Label2.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(6, 49)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(16, 16)
+        Me.Label2.TabIndex = 12
+        Me.Label2.Text = "Y"
+        '
+        'AnalogCoordsGroupBox
+        '
+        Me.AnalogCoordsGroupBox.Controls.Add(Me.XAnalogTextBox)
+        Me.AnalogCoordsGroupBox.Controls.Add(Me.YAnalogTextBox)
+        Me.AnalogCoordsGroupBox.Controls.Add(Me.Label2)
+        Me.AnalogCoordsGroupBox.Controls.Add(Me.Label1)
+        Me.AnalogCoordsGroupBox.Location = New System.Drawing.Point(756, 365)
+        Me.AnalogCoordsGroupBox.Name = "AnalogCoordsGroupBox"
+        Me.AnalogCoordsGroupBox.Size = New System.Drawing.Size(139, 73)
+        Me.AnalogCoordsGroupBox.TabIndex = 13
+        Me.AnalogCoordsGroupBox.TabStop = False
+        Me.AnalogCoordsGroupBox.Text = "Analog Coords"
+        '
+        'Label3
+        '
+        Me.Label3.AutoSize = True
+        Me.Label3.Location = New System.Drawing.Point(672, 371)
+        Me.Label3.Name = "Label3"
+        Me.Label3.Size = New System.Drawing.Size(72, 16)
+        Me.Label3.TabIndex = 14
+        Me.Label3.Text = "Port Select"
         '
         'GraphicEx
         '
@@ -244,8 +341,10 @@ Partial Class GraphicEx
         Me.CancelButton = Me.EraseButton
         Me.ClientSize = New System.Drawing.Size(920, 450)
         Me.ContextMenuStrip = Me.MainContextMenuStrip
+        Me.Controls.Add(Me.Label3)
+        Me.Controls.Add(Me.AnalogCoordsGroupBox)
         Me.Controls.Add(Me.PortsComboBox)
-        Me.Controls.Add(Me.GroupBox1)
+        Me.Controls.Add(Me.ModeSelectGroupBox)
         Me.Controls.Add(Me.ExitButton)
         Me.Controls.Add(Me.EraseButton)
         Me.Controls.Add(Me.SelectColorButton)
@@ -259,8 +358,10 @@ Partial Class GraphicEx
         Me.TopMenuStrip.PerformLayout()
         Me.MainContextMenuStrip.ResumeLayout(False)
         CType(Me.DrawingPictureBox, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.GroupBox1.ResumeLayout(False)
-        Me.GroupBox1.PerformLayout()
+        Me.ModeSelectGroupBox.ResumeLayout(False)
+        Me.ModeSelectGroupBox.PerformLayout()
+        Me.AnalogCoordsGroupBox.ResumeLayout(False)
+        Me.AnalogCoordsGroupBox.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -287,10 +388,16 @@ Partial Class GraphicEx
     Friend WithEvents ExitButton As Button
     Friend WithEvents DrawWaveformsTopMenuItem As ToolStripMenuItem
     Friend WithEvents DrawWaveformsMenuItem As ToolStripMenuItem
-    Friend WithEvents GroupBox1 As GroupBox
+    Friend WithEvents ModeSelectGroupBox As GroupBox
     Friend WithEvents MouseModeRadioButton As RadioButton
     Friend WithEvents AnalogModeRadioButton As RadioButton
     Friend WithEvents PortsComboBox As ComboBox
     Friend WithEvents SerialPort1 As IO.Ports.SerialPort
     Friend WithEvents Timer1 As Timer
+    Friend WithEvents XAnalogTextBox As TextBox
+    Friend WithEvents YAnalogTextBox As TextBox
+    Friend WithEvents Label1 As Label
+    Friend WithEvents Label2 As Label
+    Friend WithEvents AnalogCoordsGroupBox As GroupBox
+    Friend WithEvents Label3 As Label
 End Class
